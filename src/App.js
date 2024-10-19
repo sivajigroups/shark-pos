@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NavBar from './NavBar';
+import AddInventory from './AddInventory';
+import ProductList from './ProductList';
+import EditProduct from './EditProduct';  // Import the new EditProduct component
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div style={{ display: 'flex' }}>
+                <NavBar />
+                <div style={{ marginLeft: 0, padding: '20px', width: '100%' }}>
+                    <Routes>
+                        <Route path="/add-inventory" element={<AddInventory />} />
+                        <Route path="/product-list" element={<ProductList />} />
+                        <Route path="/edit-product/:id" element={<EditProduct />} />  {/* Edit route with parameter */}
+                    </Routes>
+                </div>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
