@@ -1,0 +1,35 @@
+name: Deploy React App to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'  # Use Node.js version 20, adjust if necessary
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build React App
+      run: npm run build
+
+    - name: Deploy to EC2
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.PEM_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+        # Copy build files to EC2 instance
+        scp -r build/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/html/shark-react/
