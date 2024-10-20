@@ -16,7 +16,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost/api/getproducts/${id}`);
+                const response = await axios.get(`http://3.110.165.57/api/getproducts/${id}`);
                 setProduct(response.data);
                 setLoading(false);
             } catch (err) {
@@ -68,7 +68,7 @@ const EditProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost/api/updateproduct/${id}`, product);
+            await axios.put(`http://3.110.165.57/api/updateproduct/${id}`, product);
 
             // Show success toast
             toast.success('Product updated successfully!');
