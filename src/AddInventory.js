@@ -65,7 +65,7 @@ const AddInventory = () => {
         e.preventDefault();
         if (validateFields()) {
             try {
-                await axios.post('http://3.110.165.57/api/createproduct', formData);
+                await axios.post('http://3.110.165.57:3000/api/createproduct', formData);
                 
                 // Show success toast
                 toast.success('Product added successfully!');
